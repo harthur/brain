@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/harthur/brain.png)](http://travis-ci.org/harthur/brain)
 # brain
 `brain` is a JavaScript [neural network](http://en.wikipedia.org/wiki/Artificial_neural_network) library. Here's an example of using it to approximate the XOR function:
 
