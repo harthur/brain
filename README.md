@@ -18,7 +18,7 @@ There's no reason to use a neural network to figure out XOR however (-: so here'
 # Using in node
 If you have [node](http://nodejs.org/) you can install with [npm](http://github.com/isaacs/npm):
 
-	npm install brain
+  npm install brain
 
 # Using in the browser
 Download the latest [brain.js](http://github.com/harthur/brain/downloads). Training is computationally expensive, so you should try to train the network offline (or on a Worker) and use the `toFunction()` or `toJSON()` options to plug the pre-trained network in to your website.
@@ -87,6 +87,94 @@ var run = net.toFunction();
 var output = run({ r: 1, g: 0.4, b: 0 });
 
 console.log(run.toString()); // copy and paste! no need to import brain.js
+```
+# Streams
+The network itself is a [WriteStream](http://nodejs.org/api/stream.html#stream_class_stream_writable). You can train the network by using `pipe()` to send the training data to the network.
+
+#### Initialization
+To train the network using a stream you must first initialize it by calling `net.initTrainStream()` which takes the following options:
+
+* `floodCallback()` - the callback function to re-populate the stream. This gets called on every training iteration.
+* `doneTrainingCallback(info)` - the callback function to execute when the network is done training. The `info` param will contain a hash of information about how the training went:
+
+```javascript
+{
+  error: 0.0039139985510105032,  // training error
+  iterations: 406                // training iterations
+}
+```
+
+#### Transform
+Use a [Transform](http://nodejs.org/api/stream.html#stream_class_stream_transform) to coerce the data into the correct format. You might also use a Transform stream to normalize your data on the fly.
+
+#### Example
+
+```javascript
+var net = new brain.NeuralNetwork();
+var collection = db.collection('nn');
+var stream = collection.find().stream();
+// pipe the data to a transform first to coerce it into the expected datum
+var ts = Transform({
+  objectMode: true
+});
+ts._transform = function (chunk, enc, next) {
+  var tf = {
+    input: _.pick(chunk, 'propOne', 'propTwo'),
+    output: _.pick(chunk, 'outProp')
+  };
+  this.push(tf);
+  next();
+};
+stream.on("end", function () {
+  net.write(null);
+});
+net.initTrainStream({
+  floodCallback: function () {
+    // query and pipe again
+    var ts = Transform({
+      objectMode: true
+    });
+    ts._transform = function (chunk, enc, next) {
+      var tf = {
+        input: _.pick(chunk, 'propOne', 'propTwo'),
+        output: _.pick(chunk, 'outProp')
+      };
+      this.push(tf);
+      next();
+    };
+
+    var stream = collection.find().stream();
+    // when you pipe be sure to leave the stream open for the next iteration
+    stream.pipe(ts, {
+      end: false
+    }).pipe(net, {
+      end: false
+    });
+
+    stream.on("end", function () {
+      net.write(null); // let the network know an iteration has finished
+    });
+  },
+  doneTrainingCallback: function (info) {
+    // close the database connection
+    db.close();
+
+    // run the network here
+    console.log("done training");
+    console.log(info);
+  },
+  errorThresh: 0.0000000000004, // custom error threshold to reach
+  iterations: 200000, // maximum training iterations
+  log: true, // console.log() progress periodically
+  logPeriod: 5000 // number of iterations between logging
+});
+
+// when you pipe be sure to leave the stream open for the next iteration
+stream.pipe(ts, {
+  end: false
+}).pipe(net, {
+  end: false
+});
 ```
 
 # Options
