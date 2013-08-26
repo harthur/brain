@@ -57,7 +57,7 @@ describe('bitwise functions', function() {
 
   it('NOT function', function() {
     var not = [{
-      input: [1],
+      input: [0],
       output: [1]
     }, {
       input: [1],
