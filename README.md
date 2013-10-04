@@ -89,10 +89,13 @@ var output = run({ r: 1, g: 0.4, b: 0 });
 console.log(run.toString()); // copy and paste! no need to import brain.js
 ```
 # Streams
-The network itself is a [WriteStream](http://nodejs.org/api/stream.html#stream_class_stream_writable). You can train the network by using `pipe()` to send the training data to the network.
+The network now has a [WriteStream](http://nodejs.org/api/stream.html#stream_class_stream_writable). You can train the network by using `pipe()` to send the training data to the network.
+
+#### Example
+Refer to `test/unit/stream-bitwise.js` for an example on how to train the network with a stream.
 
 #### Initialization
-To train the network using a stream you must first initialize it by calling `net.initTrainStream()` which takes the following options:
+To train the network using a stream you must first create the stream by calling `net.createTrainStream()` which takes the following options:
 
 * `floodCallback()` - the callback function to re-populate the stream. This gets called on every training iteration.
 * `doneTrainingCallback(info)` - the callback function to execute when the network is done training. The `info` param will contain a hash of information about how the training went:
