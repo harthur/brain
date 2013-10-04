@@ -23,6 +23,11 @@ function StreamTester(opts) {
   this.flood();
 }
 
+/*
+  Every time you finish an epoch of flood,
+  you must write null to the stream
+  to let it know we have reached the end of the epoch
+ */
 StreamTester.prototype.flood = function() {
   var self = this;
 
