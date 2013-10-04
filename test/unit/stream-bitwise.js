@@ -15,7 +15,7 @@ function StreamTester(opts) {
 
   this.net = new brain.NeuralNetwork();
 
-  this.net.initTrainStream({
+  this.trainStream = this.net.createTrainStream({
     floodCallback: self.flood.bind(self),
     doneTrainingCallback: self.doneTraining.bind(self),
     errorThresh: self.errorThresh // error threshold to reach
@@ -32,9 +32,9 @@ StreamTester.prototype.flood = function() {
   var self = this;
 
   for (var i = self.testData.length - 1; i >= 0; i--) {
-    self.net.write(self.testData[i]);
+    self.trainStream.write(self.testData[i]);
   }
-  self.net.write(null);
+  self.trainStream.write(null);
 }
 
 StreamTester.prototype.doneTraining = function(info) {
