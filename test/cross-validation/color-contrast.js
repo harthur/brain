@@ -38,25 +38,25 @@ describe('neural network cross-validation', function() {
     runTest(couchUrl, function(result) {
       console.log("\nMisclassifications:");
       result.misclasses.forEach(function(misclass) {
-        console.log("input: " + misclass.input
-          + " actual: " + letters[misclass.actual]
-          + " expected: " + letters[misclass.expected] + "\n")
-      })
+        console.log("input: " + misclass.input +
+          " actual: " + letters[misclass.actual] +
+          " expected: " + letters[misclass.expected] + "\n");
+      });
 
       console.log("Cross-validation of color contrast data:\n");
       console.log(result.avgs);
 
-      console.log("\nMisclassification rate: "
-      + result.misclasses.length / (result.avgs.testSize + result.avgs.trainSize));
+      console.log("\nMisclassification rate: " +
+      result.misclasses.length / (result.avgs.testSize + result.avgs.trainSize));
 
-      console.log("\nMean squared error: "
-      + result.avgs.error);
+      console.log("\nMean squared error: " +
+      result.avgs.error);
 
       var perf = result.avgs.iterations / (result.avgs.trainTime / 1000);
       console.log("\nTraining iterations per second: " + perf);
 
-      assert.ok(result.avgs.error < .02);
+      assert.ok(result.avgs.error < 0.02);
       done();
-    })
-  })
-})
+    });
+  });
+});
