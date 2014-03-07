@@ -16,7 +16,7 @@ describe('neural network options', function() {
     assert.equal(json.layers.length, 4);
     assert.equal(_(json.layers[1]).keys().length, 8);
     assert.equal(_(json.layers[2]).keys().length, 7);
-  })
+  });
 
   it('hiddenLayers default expand to input size', function() {
     var net = new brain.NeuralNetwork();
@@ -30,7 +30,7 @@ describe('neural network options', function() {
 
     assert.equal(json.layers.length, 3);
     assert.equal(_(json.layers[1]).keys().length, 4, "9 input units means 4 hidden");
-  })
+  });
 
 
   it('learningRate - higher learning rate should train faster', function() {
@@ -46,7 +46,7 @@ describe('neural network options', function() {
     var iters2 = net2.train(data).iterations;
 
     assert.ok(iters1 > (iters2 * 1.1), iters1 + " !> " + iters2 * 1.1);
-  })
+  });
 
   it('momentum - higher momentum should train faster', function() {
     var data = [{input: [0, 0], output: [0]},
@@ -61,5 +61,5 @@ describe('neural network options', function() {
     var iters2 = net2.train(data).iterations;
 
     assert.ok(iters1 > (iters2 * 1.1), iters1 + " !> " + (iters2 * 1.1));
-  })
-})
+  });
+});

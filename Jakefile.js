@@ -6,7 +6,7 @@
 */
 var fs = require("fs"),
     path = require("path"),
-    util = require('util')
+    util = require('util'),
     build = require("./build");
    
 var pkg = JSON.parse(fs.readFileSync("package.json")); 
@@ -25,7 +25,7 @@ task('minify', [], function (file, dest) {
 
   var minified = minify(fs.readFileSync(file, "utf-8"));
   fs.writeFileSync(dest, minified, "utf-8");
-  util.puts("> " + dest)
+  util.puts("> " + dest);
 });
 
 task('clean', [], function () {

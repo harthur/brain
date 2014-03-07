@@ -9,7 +9,7 @@ exports.build = function(dest) {
     shim: false
   });
   
-  source = "var brain = (function() {" + source + " return require('brain')})();"
+  source = "var brain = (function() {" + source + " return require('brain')})();";
 
   fs.writeFileSync(dest, source);
-}
+};
