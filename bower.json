@@ -1,0 +1,25 @@
+{
+  "name": "brain",
+  "version": "0.0.0",
+  "homepage": "https://github.com/harthur/brain",
+  "authors": [
+    "Heather Aurthur <fayearthur@gmail.com>"
+  ],
+  "description": "Neural networks in JavaScript",
+  "main": "lib/brain.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "license": "Public Domain",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
