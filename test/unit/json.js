@@ -20,7 +20,7 @@ describe('JSON', function() {
 
     assert.equal(JSON.stringify(output1), JSON.stringify(output2),
                   "loading json serialized network failed");
-  })
+  });
 
 
   it('toFunction()', function() {
@@ -29,5 +29,5 @@ describe('JSON', function() {
 
     assert.equal(JSON.stringify(output1), JSON.stringify(output2),
                    "standalone network function failed");
-  })
-})
+  });
+});

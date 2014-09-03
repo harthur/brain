@@ -25,8 +25,8 @@ function extractPoints(imageData) {
           b = imageData.data[i + 2],
           a = imageData.data[i + 3];
 
-      var luma = a == 0 ? 1 : (r * 299/1000 + g * 587/1000
-        + b * 114/1000 ) / 255;
+      var luma = a === 0 ? 1 : (r * 299/1000 + g * 587/1000 +
+                 b * 114/1000 ) / 255;
 
       points.push(luma);
     }
@@ -37,7 +37,7 @@ function extractPoints(imageData) {
 describe('OCR cross-validation', function() {
   it('recognize characters in different fonts', function() {
     var canvas = require("canvas");
-    var canvas = new canvas(dim, dim);
+    canvas = new canvas(dim, dim);
     var context = canvas.getContext("2d");
 
     var letters = ["A", "B", "C", "D", "E",
@@ -64,23 +64,23 @@ describe('OCR cross-validation', function() {
 
     console.log("\nMisclassifications:");
     result.misclasses.forEach(function(misclass) {
-      console.log("input: " + misclass.input
-        + " actual: " + letters[misclass.actual]
-        + " expected: " + letters[misclass.expected] + "\n")
-    })
+      console.log("input: " + misclass.input +
+                  " actual: " + letters[misclass.actual] +
+                  " expected: " + letters[misclass.expected] + "\n");
+    });
 
     console.log("\nCross-validation of OCR data:\n");
     console.log(result.avgs);
 
-    console.log("\nMisclassification rate: "
-      + result.misclasses.length / data.length);
+    console.log("\nMisclassification rate: " +
+                result.misclasses.length / data.length);
 
-    console.log("\nMean squared error: "
-      + result.avgs.error);
+    console.log("\nMean squared error: " +
+                result.avgs.error);
 
     var perf = result.avgs.iterations / (result.avgs.trainTime / 1000);
     console.log("\nTraining iterations per second: " + perf);
 
-    assert.ok(result.avgs.error < .1);
-  })
-})
+    assert.ok(result.avgs.error < 0.1);
+  });
+});

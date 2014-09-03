@@ -35,7 +35,7 @@ StreamTester.prototype.flood = function() {
     self.trainStream.write(self.testData[i]);
   }
   self.trainStream.write(null);
-}
+};
 
 StreamTester.prototype.doneTraining = function(info) {
   var self = this;
@@ -46,7 +46,7 @@ StreamTester.prototype.doneTraining = function(info) {
     assert.ok(output < (target + self.wiggle) && output > (target - self.wiggle),
       "failed to train " + self.op + " - output: " + output + " target: " + target);
   }
-}
+};
 
 
 function testBitwise(data, op) {
@@ -69,7 +69,7 @@ describe('bitwise functions', function() {
       output: [0]
     }];
     testBitwise(not, "not");
-  })
+  });
 
   it('XOR function', function() {
     var xor = [{
@@ -86,7 +86,7 @@ describe('bitwise functions', function() {
       output: [0]
     }];
     testBitwise(xor, "xor");
-  })
+  });
 
   it('OR function', function() {
     var or = [{
@@ -120,5 +120,5 @@ describe('bitwise functions', function() {
       output: [1]
     }];
     testBitwise(and, "and");
-  })
-})
+  });
+});
