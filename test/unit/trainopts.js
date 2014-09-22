@@ -25,7 +25,7 @@ describe('train() options', function() {
     });
 
     assert.equal(stats.iterations, 1);
-  })
+  });
 
   it('training callback called with training stats', function(done) {
     var iters = 100;
@@ -38,7 +38,7 @@ describe('train() options', function() {
     net.train(data, {
       iterations: iters,
       callback: function(stats) {
-        assert.ok(stats.iterations % period == 0);
+        assert.ok(stats.iterations % period === 0);
 
         calls++;
         if (calls == target) {
@@ -48,4 +48,4 @@ describe('train() options', function() {
       callbackPeriod: 20
     });
   });
-})
+});
