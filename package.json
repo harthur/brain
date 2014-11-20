@@ -14,7 +14,7 @@
     },
     "main": "./lib/brain",
     "dependencies": {
-        "underscore": ">=1.5.1",
+        "lodash": "2.4.1",
         "inherits": "~2.0.1"
     },
     "devDependencies": {
