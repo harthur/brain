@@ -48,4 +48,18 @@ describe('train() options', function() {
       callbackPeriod: 20
     });
   });
+  
+  it('trains the neural network without (re)initializing the weights', function() {
+    var net = new brain.NeuralNetwork();
+    var firstTrainingError = net.train(data, {
+      errorThresh: 0.2,
+      iterations: 100000
+    }).error;
+    var secondTrainingError = net.train(data, {
+      errorThresh: 0.2,
+      iterations: 1,
+      initialization: false
+    }).error;   
+    assert.ok(secondTrainingError <= firstTrainingError);      
+  });  
 })
