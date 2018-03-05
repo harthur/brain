@@ -18,6 +18,10 @@ var output = net.run([1, 0]);  // [0.987]
 There's no reason to use a neural network to figure out XOR however (-: so here's a more involved, realistic example:
 [Demo: training a neural network to recognize color contrast](http://harthur.github.com/brain/)
 
+## Dependencies
+
+This library depends on the [cairo](http://cairographics.org/) 2D graphics library. Make sure you install cairo before installing brain.js.
+
 ## Using in node
 If you have [node](http://nodejs.org/) you can install with [npm](http://npmjs.org):
 
